@@ -5,7 +5,7 @@ import json
 precision_count = 0
 total_count = 0
 
-for subdir, dirs, files in os.walk('merge_1000'):
+for subdir, dirs, files in os.walk('./data/merge_1000'):
     try:
         for file in files:
             if file.endswith('.txt'):

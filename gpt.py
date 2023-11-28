@@ -13,9 +13,9 @@ operation = 'groupby'
 
 prompt_map = {
   'melt': 'Give me the columns that are reasonable choices to collapse (melt/unpivot) in the csv table below. Simply return the answer, without any other text, as strings in this format: "value_vars": []\n',
-  'pivot': 'Give me the columns that are reasonable choices to pivot in the csv table below. Simply return the answer, without any text, in this format: {"column": [], "index": [], "value": [], "aggfunc": } ',
+  'pivot': 'You will perform a pivot operation on the CSV table below and need to choose the best parameters. Predict which column would be the best index column (left-hand side of the pivot) and which column would be the best header column (columns on top of the result). Simply return the answer, without any text, in this format: {"header": [], "index": []}\n',
   'groupby': 'Tell me the best column to groupby in the csv table below. Simply return the column name, without any other text.\n',
-  'join': 'Give me the type of join and a reasonable choice of column to join these two csv tables below. Simply return the answer, without any other text, as strings in this format: {"how": , "left on": , "right on": }\n'
+  'join': 'Give me the type of join and a reasonable choice of columns to join these two csv tables below. Simply return the answer, without any other text, as strings in this format: {"how": , "left on": , "right on": }\n'
 }
 
 count = 0
