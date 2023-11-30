@@ -38,7 +38,7 @@ for subdir, dirs, files in os.walk('./groupby_1000'):
             with open(filepath, 'r') as f:
                 # Read the first 5 lines of the csv into a string
                 data = f.readlines()
-                data = data[:5]
+                data = data[:10]
                 data = ''.join(data)
                 print(data)
 
