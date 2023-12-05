@@ -65,6 +65,8 @@ def compute_ndcg_at_2(predictions, ground_truth):
     for i in range(len(predictions)):
         current_predictions = predictions[i]
         for k in range(len(current_predictions)):
+            if k >= len(ground_truth[i]):
+                continue
             if current_predictions[k] in set(ground_truth[i]):
                 dcg += 1 / np.log2(k + 2)
             idcg += 1 / np.log2(k + 2)
@@ -90,12 +92,12 @@ for subdir, dirs, files in os.walk('./data/groupby_1000'):
         print("Error reading file.")
         continue
 
-accuracy = compute_accuracy(predictions, ground_truth)
+# accuracy = compute_accuracy(predictions, ground_truth)
 precision = compute_precision_at_1(predictions, ground_truth)
 ndcg_at_1 = compute_ndcg_at_1(predictions, ground_truth)
 ndcg_at_2 = compute_ndcg_at_2(predictions, ground_truth)
 
-print(f'Accuracy: {accuracy:.4f}')
+# print(f'Accuracy: {accuracy:.4f}')
 print(f'Precision@1: {precision:.4f}')
 print(f'NDCG@1: {ndcg_at_1:.4f}')
 print(f'NDCG@2: {ndcg_at_2:.4f}')
