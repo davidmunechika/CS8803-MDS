@@ -1,6 +1,6 @@
 import os
 
-directory_path = "./groupby_10000"
+directory_path = "./data/groupby_1000"
 
 # Walk through all directories and subdirectories
 for root, dirs, files in os.walk(directory_path):

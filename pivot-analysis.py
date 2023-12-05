@@ -48,6 +48,9 @@ def compute_metrics(directory):
 
 directories = ["pivot_1000_lower", "pivot_1000_upper", "pivot_1000_lower_column", "pivot_1000_upper_column"]
 
-for directory in directories:
-    accuracy = compute_metrics(directory)
-    print(f"Accuracy for {directory}: {accuracy}")
+# for directory in directories:
+#     accuracy = compute_metrics(directory)
+#     print(f"Accuracy for {directory}: {accuracy}")
+
+accuracy = compute_metrics("pivot_1000")
+print(f"Accuracy for pivot_1000: {accuracy}")

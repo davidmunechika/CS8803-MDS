@@ -14,30 +14,56 @@ def compute_accuracy(predictions, ground_truth):
 
 def compute_precision_at_1(predictions, ground_truth):
     correct_predictions = 0
-    for i in range(len(predictions)):
-        predictions[i] = predictions[i].replace('\n', '')
-        if predictions[i] in set(ground_truth[i]):
-            correct_predictions += 1
-    total_predictions = len(predictions)
-    precision = correct_predictions / total_predictions
-    return precision
+    if type(predictions) == str:
+        for i in range(len(predictions)):
+            prediction = predictions[i].replace('\n', '')
+            if predictions[i] in set(ground_truth[i]):
+                correct_predictions += 1
+        total_predictions = len(predictions)
+        precision = correct_predictions / total_predictions
+        return precision
+    else:
+        for i in range(len(predictions)):
+            if len(predictions[i]) == 0:
+                continue
+            prediction = predictions[i][0]
+            if prediction in set(ground_truth[i]):
+                correct_predictions += 1
+        total_predictions = len(predictions)
+        precision = correct_predictions / total_predictions
+        return precision
 
 def compute_ndcg_at_1(predictions, ground_truth):
-    dcg = 0
-    idcg = 0
-    for i in range(len(predictions)):
-        predictions[i] = predictions[i].replace('\n', '')
-        if predictions[i] in set(ground_truth[i]):
-            dcg += 1 / np.log2(2)
-        idcg += 1 / np.log2(2)
-    ndcg = dcg / idcg
-    return ndcg
+    if type(predictions) == str:
+        dcg = 0
+        idcg = 0
+        for i in range(len(predictions)):
+            predictions[i] = predictions[i].replace('\n', '')
+            if predictions[i] in set(ground_truth[i]):
+                dcg += 1 / np.log2(2)
+            idcg += 1 / np.log2(2)
+        ndcg = dcg / idcg
+        return ndcg
+    else:
+        dcg = 0
+        idcg = 0
+        for i in range(len(predictions)):
+            if len(predictions[i]) == 0:
+                continue
+            prediction = predictions[i][0]
+            if prediction in set(ground_truth[i]):
+                dcg += 1 / np.log2(2)
+            idcg += 1 / np.log2(2)
+        ndcg = dcg / idcg
+        return ndcg
 
 def compute_ndcg_at_2(predictions, ground_truth):
+    if type(predictions) == str:
+        return None
     dcg = 0
     idcg = 0
     for i in range(len(predictions)):
-        current_predictions = predictions[i].replace('\n', '').split(',')
+        current_predictions = predictions[i]
         for k in range(len(current_predictions)):
             if current_predictions[k] in set(ground_truth[i]):
                 dcg += 1 / np.log2(k + 2)
@@ -67,10 +93,12 @@ for subdir, dirs, files in os.walk('./data/groupby_1000_lower'):
 accuracy = compute_accuracy(predictions, ground_truth)
 precision = compute_precision_at_1(predictions, ground_truth)
 ndcg_at_1 = compute_ndcg_at_1(predictions, ground_truth)
+ndcg_at_2 = compute_ndcg_at_2(predictions, ground_truth)
 
 print(f'Accuracy (LOWER ROW): {accuracy:.4f}')
 print(f'Precision@1 (LOWER ROW): {precision:.4f}')
 print(f'NDCG@1 (LOWER ROW): {ndcg_at_1:.4f}')
+print(f'NDCG@2 (LOWER ROW): {ndcg_at_2:.4f}')
 
 predictions = []
 ground_truth = []
@@ -94,10 +122,12 @@ for subdir, dirs, files in os.walk('./data/groupby_1000_upper'):
 accuracy = compute_accuracy(predictions, ground_truth)
 precision = compute_precision_at_1(predictions, ground_truth)
 ndcg_at_1 = compute_ndcg_at_1(predictions, ground_truth)
+ndcg_at_2 = compute_ndcg_at_2(predictions, ground_truth)
 
 print(f'Accuracy (UPPER ROW): {accuracy:.4f}')
 print(f'Precision@1 (UPPER ROW): {precision:.4f}')
 print(f'NDCG@1 (UPPER ROW): {ndcg_at_1:.4f}')
+print(f'NDCG@2 (UPPER ROW): {ndcg_at_2:.4f}')
 
 predictions = []
 ground_truth = []
@@ -121,10 +151,12 @@ for subdir, dirs, files in os.walk('./data/groupby_1000_lower_column'):
 accuracy = compute_accuracy(predictions, ground_truth)
 precision = compute_precision_at_1(predictions, ground_truth)
 ndcg_at_1 = compute_ndcg_at_1(predictions, ground_truth)
+ndcg_at_2 = compute_ndcg_at_2(predictions, ground_truth)
 
 print(f'Accuracy (LOWER COLUMN): {accuracy:.4f}')
 print(f'Precision@1 (LOWER COLUMN): {precision:.4f}')
 print(f'NDCG@1 (LOWER COLUMN): {ndcg_at_1:.4f}')
+print(f'NDCG@2 (LOWER COLUMN): {ndcg_at_2:.4f}')
 
 predictions = []
 ground_truth = []
@@ -148,7 +180,9 @@ for subdir, dirs, files in os.walk('./data/groupby_1000_upper_column'):
 accuracy = compute_accuracy(predictions, ground_truth)
 precision = compute_precision_at_1(predictions, ground_truth)
 ndcg_at_1 = compute_ndcg_at_1(predictions, ground_truth)
+ndcg_at_2 = compute_ndcg_at_2(predictions, ground_truth)
 
 print(f'Accuracy (UPPER COLUMN): {accuracy:.4f}')
 print(f'Precision@1 (UPPER COLUMN): {precision:.4f}')
 print(f'NDCG@1 (UPPER COLUMN): {ndcg_at_1:.4f}')
+print(f'NDCG@2 (UPPER COLUMN): {ndcg_at_2:.4f}')
