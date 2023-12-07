@@ -22,6 +22,10 @@ Since there is no API interface for Github Copilot, we manually evaluate a subse
 
 The evaluation scripts `*-evaluation.py` are individual Python scripts which can be run to compute metrics after all of the the recommendations have been generated. These scripts will print the results of the evaluation to the console.
 
+## Analysis
+
+The analysis scripts `*-analysis.py` are Python scripts which compare how the models perform against different subsets of the data (smaller tables vs. larger tables, less columns vs. more columns. etc.). It utilizes the same evaluation metrics as the evaluation scripts.
+
 ## Other Scripts
 
 Random sampling of subdirectories for each operation can be done using the `sampling.py` file. This step is highly recommended due to the tremendous size of the full dataset.
