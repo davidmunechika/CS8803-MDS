@@ -4,7 +4,7 @@ import json
 correct_count = 0
 total_count = 0
 
-for subdir, dirs, files in os.walk('pivot_1000'):
+for subdir, dirs, files in os.walk('./data/pivot_1000'):
     try:
         for file in files:
             if file.endswith('.txt'):
@@ -29,7 +29,7 @@ for subdir, dirs, files in os.walk('pivot_1000'):
                         ground_truth_index = set()
                     else:
                         ground_truth_index = set(content["index"])
-        if len(header.intersection(ground_truth_header)) > 0 or len(index.intersection(ground_truth_index)) > 0:
+        if len(header.intersection(ground_truth_header)) > 0 and len(index.intersection(ground_truth_index)) > 0:
             correct_count += 1
         total_count += 1
                 
